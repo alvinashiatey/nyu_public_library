@@ -2,29 +2,34 @@
 import Layout from "../layouts/Layout.astro";
 import { fetchBooks } from "../data/api.ts";
 import type { Book } from "../data/api.ts";
+import { Image } from "astro:assets";
+import lib from "../../public/lib.png";
 
 const books: Book[] = (await fetchBooks()) || [];
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Digital Library">
   <main>
-    <h1>NYU Library</h1>
-    {
-      books.map((book) => (
-        <div>
-          <h2>{book.title}</h2>
-          {book.files.map((file) => (
-            <iframe
-              class="pdf-embed"
-              src={file.url}
-              width="100%"
-              height="500"
-              title={book.title}
-            />
-          ))}
-        </div>
-      ))
-    }
+    <header>
+      <div class="left">
+        <a href="" class="btn btn-black">OFFICE00</a>
+        <a href="" class="btn btn-white">About</a>
+      </div>
+
+      <div class="right">
+        <a href="" class="btn btn-white">Books</a>
+        <a href="" class="btn btn-white">Gallery</a>
+      </div>
+    </header>
+    <div class="image">
+      <Image src={lib} alt="Library" />
+    </div>
+
+    <footer>
+      <div class="right">
+        <h2 class="btn btn-white-50">You are now exploring Stack 2</h2>
+      </div>
+    </footer>
   </main>
 </Layout>
 
@@ -35,6 +40,7 @@ const books: Book[] = (await fetchBooks()) || [];
     ) as HTMLIFrameElement | null;
     const button = document.querySelector("button#toggle");
     button?.addEventListener("click", () => {
+      if (!iframe) return;
       const src = iframe.src;
       if (src.includes("https://via.hypothes.is/")) {
         iframe.src = src.replace("https://via.hypothes.is/", "");
@@ -52,11 +58,56 @@ const books: Book[] = (await fetchBooks()) || [];
 <style>
   main {
     margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
+    width: 100svw;
     color: white;
-    font-size: 20px;
     line-height: 1.6;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  footer {
+    display: flex;
+    padding: 1rem;
+    position: absolute;
+    bottom: 1rem;
+  }
+
+  .btn-white-50 {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+  }
+
+  .btn-white {
+    background-color: white;
+    color: black;
+  }
+
+  .btn-black {
+    background-color: black;
+    color: white;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .image {
+    position: absolute;
+    inset: 0;
+    width: 100svw;
+    height: 100svh;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 </style>

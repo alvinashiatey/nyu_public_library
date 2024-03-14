@@ -19,9 +19,9 @@ export interface ApiResponse {
 }
 
 const fetchQuery = async (body: {}) => {
+  const authString = `${username}:${password}`;
+  const encodedAuthString = Buffer.from(authString).toString("base64");
   try {
-    const authString = `${username}:${password}`;
-    const encodedAuthString = Buffer.from(authString).toString("base64");
     const response = await fetch(api, {
       method: "POST",
       headers: {
@@ -38,7 +38,7 @@ const fetchQuery = async (body: {}) => {
 };
 
 export async function fetchBooks() {
-  const query = "page('notes').children";
+  const query = "page('books').children";
   const select = {
     title: true,
     slug: true,
@@ -52,9 +52,12 @@ export async function fetchBooks() {
       },
     },
   };
-
-  const response = await fetchQuery({ query, select });
-  if (response && response.code === 200) {
-    return response.result;
+  try {
+    const response = await fetchQuery({ query, select });
+    if (response && response.code === 200) {
+      return response.result;
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
