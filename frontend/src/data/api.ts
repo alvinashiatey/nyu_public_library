@@ -57,6 +57,7 @@ export async function fetchBooks() {
     if (response && response.code === 200) {
       return response.result;
     }
+    return [];
   } catch (error) {
     console.error(error);
   }
