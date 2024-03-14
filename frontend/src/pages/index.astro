@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { fetchBooks } from "../data/api.ts";
+import type { Book } from "../data/api.ts";
+
+const books: Book[] = (await fetchBooks()) || [];
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>NYU Library</h1>
+    {
+      books.map((book) => (
+        <div>
+          <h2>{book.title}</h2>
+          {book.files.map((file) => (
+            <iframe
+              class="pdf-embed"
+              src={file.url}
+              width="100%"
+              height="500"
+              title={book.title}
+            />
+          ))}
+        </div>
+      ))
+    }
+  </main>
+</Layout>
+
+<script>
+  function toggleHypothesis() {
+    const iframe = document.querySelector(
+      "iframe.hypothesis__embed"
+    ) as HTMLIFrameElement | null;
+    const button = document.querySelector("button#toggle");
+    button?.addEventListener("click", () => {
+      const src = iframe.src;
+      if (src.includes("https://via.hypothes.is/")) {
+        iframe.src = src.replace("https://via.hypothes.is/", "");
+      } else {
+        iframe.src = "https://via.hypothes.is/" + src;
+      }
+    });
+  }
+
+  window.onload = function () {
+    toggleHypothesis();
+  };
+</script>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+</style>

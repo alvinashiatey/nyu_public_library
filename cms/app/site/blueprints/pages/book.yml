@@ -1,0 +1,37 @@
+title: Book
+
+num: date
+
+icon: 📗
+
+status:
+  draft:
+    label: Draft
+    text: The entry is still in draft mode. It can only be seen by editors with panel access.
+  unlisted:
+    label: In Review
+    text: The entry is online and can be visited with the direct URL. The team must still give the final go to publish it.
+  listed:
+    label: Published
+    text: The entry is online and listed in the blog
+
+sections:
+  files:
+    label: File
+    type: files
+    multiple: false
+    layout: cards
+    size: medium
+    info: "{{ file.description }}"
+    sortable: false
+  meta:
+    type: fields
+    fields:
+      date:
+        type: date
+        time: true
+        default: now
+      author:
+        type: users
+      tags: true
+
