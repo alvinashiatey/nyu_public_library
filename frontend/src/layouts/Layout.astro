@@ -42,7 +42,6 @@ const { title } = Astro.props;
   }
   html {
     font-family: system-ui, sans-serif;
-    background: #13151a;
     background-size: 224px;
   }
   code {
@@ -55,6 +54,27 @@ const { title } = Astro.props;
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
+  }
+
+  .btn-white-50 {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+  }
+
+  .btn-white {
+    background-color: white;
+    color: black;
+  }
+
+  .btn-black {
+    background-color: black;
+    color: white;
+  }
+
+  .btn {
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-decoration: none;
   }
 
   h1,

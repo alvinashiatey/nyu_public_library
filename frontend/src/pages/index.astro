@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { fetchBooks } from "../data/api.ts";
-import type { Book } from "../data/api.ts";
+import { fetchBooks } from "../data/api";
+import type { Book } from "../data/api";
 import { Image } from "astro:assets";
 import lib from "../../public/lib.png";
 
@@ -12,13 +12,13 @@ const books: Book[] = (await fetchBooks()) || [];
   <main>
     <header>
       <div class="left">
-        <a href="" class="btn btn-black">OFFICE00</a>
-        <a href="" class="btn btn-white">About</a>
+        <a href="/" class="btn btn-black">OFFICE00</a>
+        <a href="/about" class="btn btn-white">About</a>
       </div>
 
       <div class="right">
-        <a href="" class="btn btn-white">Books</a>
-        <a href="" class="btn btn-white">Gallery</a>
+        <a href="/books" class="btn btn-white">Books</a>
+        <a href="/gallery" class="btn btn-white">Gallery</a>
       </div>
     </header>
     <div class="image">
@@ -74,27 +74,6 @@ const books: Book[] = (await fetchBooks()) || [];
     padding: 1rem;
     position: absolute;
     bottom: 1rem;
-  }
-
-  .btn-white-50 {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
-  }
-
-  .btn-white {
-    background-color: white;
-    color: black;
-  }
-
-  .btn-black {
-    background-color: black;
-    color: white;
-  }
-
-  .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
   }
 
   .image {
