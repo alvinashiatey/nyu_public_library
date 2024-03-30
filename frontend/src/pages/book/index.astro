@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 import { Image } from "astro:assets";
-import lib from "../../public/lib.png";
-import { fetchBooks } from "../data/api";
-import type { Book } from "../data/api";
+import lib from "/public/lib.png";
+import { fetchBooks } from "@data/api";
+import type { Book } from "@data/api";
 
 const books: Book[] = (await fetchBooks()) || [];
 ---
@@ -73,6 +73,66 @@ const books: Book[] = (await fetchBooks()) || [];
                         </div>
                 ))
         }
+      <div class="book">
+        <div class="image">
+          <Image src={lib} alt="Library" />
+        </div>
+
+        <div class="info">
+          <h2>Name</h2>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
+            neque possimus rerum, molestias officia soluta sequi laboriosam
+            suscipit in pariatur expedita dolore dignissimos doloremque velit!
+            Tempore amet deleniti possimus eius!
+          </p>
+        </div>
+      </div>
+      <div class="book">
+        <div class="image">
+          <Image src={lib} alt="Library" />
+        </div>
+
+        <div class="info">
+          <h2>Name</h2>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
+            neque possimus rerum, molestias officia soluta sequi laboriosam
+            suscipit in pariatur expedita dolore dignissimos doloremque velit!
+            Tempore amet deleniti possimus eius!
+          </p>
+        </div>
+      </div>
+      <div class="book">
+        <div class="image">
+          <Image src={lib} alt="Library" />
+        </div>
+
+        <div class="info">
+          <h2>Name</h2>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
+            neque possimus rerum, molestias officia soluta sequi laboriosam
+            suscipit in pariatur expedita dolore dignissimos doloremque velit!
+            Tempore amet deleniti possimus eius!
+          </p>
+        </div>
+      </div>
+      <div class="book">
+        <div class="image">
+          <Image src={lib} alt="Library" />
+        </div>
+
+        <div class="info">
+          <h2>Name</h2>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
+            neque possimus rerum, molestias officia soluta sequi laboriosam
+            suscipit in pariatur expedita dolore dignissimos doloremque velit!
+            Tempore amet deleniti possimus eius!
+          </p>
+        </div>
+      </div>
       <div class="book">
         <div class="image">
           <Image src={lib} alt="Library" />

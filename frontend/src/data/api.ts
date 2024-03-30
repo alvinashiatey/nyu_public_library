@@ -62,3 +62,29 @@ export async function fetchBooks() {
     console.error(error);
   }
 }
+
+export async function fetchBook(slug: string) {
+  const query = `page('books/${slug}')`;
+  const select = {
+    title: true,
+    slug: true,
+    date: "page.date.toDate('d.m.Y')",
+    files: {
+      query: "page.files",
+      select: {
+        type: true,
+        url: true,
+        description: true,
+      },
+    },
+  };
+  try {
+    const response = await fetchQuery({ query, select });
+    if (response && response.code === 200) {
+      return response.result[0];
+    }
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
+}
