@@ -38,7 +38,7 @@ const fetchQuery = async (body: {}) => {
 };
 
 export async function fetchBooks() {
-  const query = "page('books').children";
+  const query = "page('books').children.sortBy('date', 'desc')";
   const select = {
     title: true,
     slug: true,
