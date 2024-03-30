@@ -1,0 +1,111 @@
+---
+import type { InferGetStaticParamsType } from "astro";
+import Layout from "@layouts/Layout.astro";
+import { fetchBooks, fetchBook } from "@data/api";
+import type { Book } from "@data/api";
+
+export async function getStaticPaths() {
+  const books = await fetchBooks();
+  return books?.map((book: Book) => ({
+    params: { slug: book.slug },
+    props: { book },
+  }));
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+const { slug } = Astro.params as Params;
+const { book } = Astro.props as { book: Book };
+
+// const book = await fetchBook(slug);
+---
+
+<Layout title="Digital Library">
+  <main>
+    <header>
+      <div class="left">
+        <a href="/" class="btn btn-black">OFFICE00</a>
+      </div>
+
+      <div class="center">
+        <h1>Books</h1>
+      </div>
+
+      <div class="right">
+        <a href="" class="btn-svg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </a>
+      </div>
+    </header>
+    <div class="pdf">
+      <div class="pdf__wrapper">
+        <iframe src={book?.files[1].url} width="100%" height="100%"></iframe>
+      </div>
+
+      <div class="pdf__panel">
+        <h1>{book?.title}</h1>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  body {
+    overflow: hidden;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    height: 3.5rem;
+    .btn-svg {
+      width: 100%;
+      height: 100%;
+      svg {
+        border-radius: 0.5rem;
+        background-color: black;
+        width: 2rem;
+        height: 2rem;
+        fill: none;
+        stroke: beige;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    }
+  }
+
+  .pdf {
+    display: flex;
+    gap: 1rem;
+    .pdf__wrapper {
+      width: 100%;
+      height: 100%;
+      padding-inline: 1rem;
+      padding-block-start: 1rem;
+      background-color: gray;
+
+      iframe {
+        width: 100%;
+        height: calc(100vh - 3.5rem - 1rem);
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .pdf__panel {
+      width: 30%;
+      padding: 1rem;
+      background-color: var(--color-bg);
+    }
+  }
+</style>
