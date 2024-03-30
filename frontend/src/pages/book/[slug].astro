@@ -15,8 +15,6 @@ export async function getStaticPaths() {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 const { slug } = Astro.params as Params;
 const { book } = Astro.props as { book: Book };
-
-// const book = await fetchBook(slug);
 ---
 
 <Layout title="Digital Library">
