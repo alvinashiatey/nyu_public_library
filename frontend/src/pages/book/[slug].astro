@@ -25,7 +25,7 @@ const { book } = Astro.props as { book: Book };
       </div>
 
       <div class="center">
-        <h1>Books</h1>
+        <h1>{book?.title}</h1>
       </div>
 
       <div class="right">
@@ -47,15 +47,32 @@ const { book } = Astro.props as { book: Book };
     </header>
     <div class="pdf">
       <div class="pdf__wrapper">
-        <iframe src={book?.files[1].url} width="100%" height="100%"></iframe>
+        <iframe
+          id="frame__embed"
+          src={book?.files[1].url}
+          width="100%"
+          height="100%"></iframe>
       </div>
 
       <div class="pdf__panel">
-        <h1>{book?.title}</h1>
+        <button id="hypothesis">Annotate</button>
       </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  const iframe = document.getElementById("frame__embed") as HTMLIFrameElement;
+  const button = document.getElementById("hypothesis") as HTMLButtonElement;
+  button?.addEventListener("click", () => {
+    const url = iframe.src;
+    if (url.includes("https://via.hypothes.is/")) {
+      iframe.src = url.replace("https://via.hypothes.is/", "");
+    } else {
+      iframe.src = "https://via.hypothes.is/" + url;
+    }
+  });
+</script>
 
 <style>
   body {
