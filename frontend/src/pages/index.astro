@@ -21,6 +21,7 @@ import Layout from "@layouts/Layout.astro";
         <!-- a white plane with 50% opacity -->
         <a-entity id="stacks">
           <a-plane
+            clickhandler="txt:box1"
             class="stack"
             color="#fff"
             opacity="0.5"
@@ -29,16 +30,18 @@ import Layout from "@layouts/Layout.astro";
             rotation="0 -50 -7"
             position="0.08 1.63 -1"></a-plane>
         </a-entity>
+        <a-entity cursor="rayOrigin:mouse" raycaster="objects: .stack"
+        ></a-entity>
       </a-scene>
     </div>
-
-    <footer>
-      <div class="right">
-        <h2 class="btn btn-white-50">You are now exploring Stack 2</h2>
-      </div>
-    </footer>
   </main>
 </Layout>
+
+<footer>
+  <div class="right">
+    <h2 class="btn btn-white-50">You are now exploring Stack 2</h2>
+  </div>
+</footer>
 
 <script>
   function toggleHypothesis() {
@@ -57,25 +60,29 @@ import Layout from "@layouts/Layout.astro";
     });
   }
 
-  console.log("Hello from the Digital Library");
-
-  AFRAME.registerComponent("stacks", {
-    init: function () {
-      const sceneEl = this.el;
-      const stack = sceneEl.querySelectorAll(".stack");
-      console.log(stack);
-      // on click alert the stack number
-      stack.forEach((stack, index) => {
-        stack.addEventListener("click", () => {
-          alert(`You clicked on stack ${index + 1}`);
-        });
-      });
-    },
+  const stack = document.querySelector(".stack");
+  stack?.addEventListener("click", () => {
+    alert("You clicked on stack 1");
   });
 
   window.onload = function () {
     toggleHypothesis();
   };
+</script>
+
+<script is:inline>
+  AFRAME.registerComponent("clickhandler", {
+    schema: {
+      txt: { default: "default" },
+    },
+    init: function () {
+      var data = this.data;
+      var el = this.el;
+      el.addEventListener("click", function () {
+        console.log(data.txt);
+      });
+    },
+  });
 </script>
 
 <style>
