@@ -1,4 +1,5 @@
 const api = "http://localhost:3000/api/query";
+
 const username = import.meta.env.VITE_API_USERNAME;
 const password = import.meta.env.VITE_API_PASSWORD;
 
@@ -6,21 +7,28 @@ export interface Book {
   title: string;
   slug: string;
   date: string;
+  description: string;
+  stack: string;
   files: {
     type: string;
     url: string;
-    description: string;
   }[];
+}
+
+export interface About {
+  title: string;
+  text: string;
 }
 
 export interface ApiResponse {
   code: number;
-  result: Book[];
+  result: Book[] | About | null;
 }
 
-const fetchQuery = async (body: {}) => {
+const fetchQuery = async (body: {}): Promise<ApiResponse> => {
   const authString = `${username}:${password}`;
   const encodedAuthString = Buffer.from(authString).toString("base64");
+
   try {
     const response = await fetch(api, {
       method: "POST",
@@ -31,60 +39,62 @@ const fetchQuery = async (body: {}) => {
       },
       body: JSON.stringify(body),
     });
-    return (await response.json()) as Promise<ApiResponse>;
+
+    return await response.json();
   } catch (error) {
     console.error(error);
+    throw error; // Optional: re-throw the error if needed
   }
 };
 
-export async function fetchBooks() {
+export async function fetchBooks(): Promise<Book[]> {
   const query = "page('books').children.sortBy('date', 'desc')";
   const select = {
     title: true,
     slug: true,
     date: "page.date.toDate('d.m.Y')",
+    description: true,
+    stack: true,
     files: {
       query: "page.files",
       select: {
         type: true,
         url: true,
-        description: true,
       },
     },
   };
+
   try {
     const response = await fetchQuery({ query, select });
+
     if (response && response.code === 200) {
-      return response.result;
+      return response.result as Book[];
     }
+
     return [];
   } catch (error) {
     console.error(error);
+    throw error; // Optional: re-throw the error if needed
   }
 }
 
-export async function fetchBook(slug: string) {
-  const query = `page('books/${slug}')`;
+export async function fetchAbout(): Promise<About | null> {
+  const query = "page('about')";
   const select = {
     title: true,
-    slug: true,
-    date: "page.date.toDate('d.m.Y')",
-    files: {
-      query: "page.files",
-      select: {
-        type: true,
-        url: true,
-        description: true,
-      },
-    },
+    text: "page.text.kirbytext",
   };
+
   try {
     const response = await fetchQuery({ query, select });
+
     if (response && response.code === 200) {
-      return response.result[0];
+      return response.result as About;
     }
+
     return null;
   } catch (error) {
     console.error(error);
+    throw error; // Optional: re-throw the error if needed
   }
 }

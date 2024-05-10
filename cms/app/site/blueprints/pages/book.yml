@@ -29,6 +29,11 @@ columns:
             label: Description
             type: textarea
             size: medium
+          stack:
+            label: Stack
+            type: number
+            min: 1
+            max: 10
       meta:
         type: fields
         fields:

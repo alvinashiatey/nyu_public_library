@@ -1,0 +1,11 @@
+type: pages
+label: Artworks
+parent: kirby.page("artworks")
+info: "{{ page.published }}"
+template: artwork
+empty: No artwork yet
+sortBy: date desc
+image:
+  query: page.files.filterBy("type", "image").first()
+  cover: true
+  ratio: 3/2

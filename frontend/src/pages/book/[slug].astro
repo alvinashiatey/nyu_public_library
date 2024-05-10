@@ -1,7 +1,7 @@
 ---
 import type { InferGetStaticParamsType } from "astro";
 import Layout from "@layouts/Layout.astro";
-import { fetchBooks, fetchBook } from "@data/api";
+import { fetchBooks } from "@data/api";
 import type { Book } from "@data/api";
 
 export async function getStaticPaths() {

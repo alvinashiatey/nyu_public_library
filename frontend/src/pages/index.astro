@@ -12,13 +12,7 @@ import Layout from "@layouts/Layout.astro";
           <img id="skyTexture" src="/pano/01.jpeg" alt="sky" />
         </a-assets>
         <a-sky src="#skyTexture"></a-sky>
-        <a-text
-          value="Library"
-          width="6"
-          position="-10.0 2.25 -1.5"
-          rotation="0 30 0"></a-text>
 
-        <!-- a white plane with 50% opacity -->
         <a-entity id="stacks">
           <a-plane
             clickhandler="txt:box1"
