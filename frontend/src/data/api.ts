@@ -1,31 +1,10 @@
+import type { Book, About, ApiResponse } from "@/types.ts";
 const api = "http://localhost:3000/api/query";
 
 const username = import.meta.env.VITE_API_USERNAME;
 const password = import.meta.env.VITE_API_PASSWORD;
 
-export interface Book {
-  title: string;
-  slug: string;
-  date: string;
-  description: string;
-  stack: string;
-  files: {
-    type: string;
-    url: string;
-  }[];
-}
-
-export interface About {
-  title: string;
-  text: string;
-}
-
-export interface ApiResponse {
-  code: number;
-  result: Book[] | About | null;
-}
-
-const fetchQuery = async (body: {}): Promise<ApiResponse> => {
+export const fetchQuery = async (body: {}): Promise<ApiResponse> => {
   const authString = `${username}:${password}`;
   const encodedAuthString = Buffer.from(authString).toString("base64");
 
