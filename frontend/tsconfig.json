@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
-  "baseUrl": ".",
-  "paths": {
-    "@components/*": ["src/components/*"],
-    "@layouts/*": ["src/layouts/*"],
-    "@data/*": ["src/data/*"],
-  }
-},
-  "extends": "astro/tsconfigs/strict",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ]
+    },
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
+  },
+  "extends": "astro/tsconfigs/strict"
 }
