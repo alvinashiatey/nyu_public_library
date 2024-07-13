@@ -4,7 +4,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-COPY ./cms/app/composer.* ./
+COPY ./cms/criticismvalue/composer.* ./
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \

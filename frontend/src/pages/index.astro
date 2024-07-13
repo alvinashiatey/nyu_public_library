@@ -65,18 +65,20 @@ import Layout from "@layouts/Layout.astro";
 </script>
 
 <script is:inline>
-  AFRAME?.registerComponent("clickhandler", {
-    schema: {
-      txt: { default: "default" },
-    },
-    init: function () {
-      var data = this.data;
-      var el = this.el;
-      el.addEventListener("click", function () {
-        console.log(data.txt);
-      });
-    },
-  });
+  if (!AFRAME?.components["clickhandler"]) {
+    AFRAME?.registerComponent("clickhandler", {
+      schema: {
+        txt: { default: "default" },
+      },
+      init: function () {
+        var data = this.data;
+        var el = this.el;
+        el.addEventListener("click", function () {
+          console.log(data.txt);
+        });
+      },
+    });
+  }
 </script>
 
 <style>

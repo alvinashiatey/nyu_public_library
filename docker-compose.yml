@@ -1,8 +1,7 @@
-version: "3"
 services:
   php:
     build: .
     volumes:
-      - ./cms/app:/var/www/html
+      - ./cms/criticismvalue:/var/www/html
     ports:
       - 3000:80
